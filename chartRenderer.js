@@ -30,14 +30,12 @@ function initChart(weatherJson) {
 }
 
 function updateChart(weatherJson) {
-  let lastIndex = myLineChart.data.datasets[0].data.length - 1;
   let lineChartData = myLineChart.data.datasets[0].data;
   let oldTimeStampIndex = myLineChart.data.labels.length-1;
   let oldTimeStamp = myLineChart.data.labels[oldTimeStampIndex];
 
   let newLastTimestamp = weatherJson.items[weatherJson.items.length-1].timestamp;
   if (newLastTimestamp !== oldTimeStamp) {
-    //console.log('old timestamp: ' + oldTimeStamp + ', new timestamp: ' + newLastTimestamp);
     let minuteDiff = +newLastTimestamp.substring(14, 16) - oldTimeStamp.substring(14, 16);
 
     for (; minuteDiff > 0; minuteDiff--) {
@@ -59,18 +57,6 @@ function updateChart(weatherJson) {
 
     myLineChart.update();
   }
-  
-/*
-  let stn = weatherJson.items[0].readings[0].station_id;
-  let value = weatherJson.items[0].readings[0].value;
-  console.log("time: " + timestamp + " stn: " + stn + " value: " + value);
-
-
-
-  myLineChart.data.labels.push(timestamp);
-  myLineChart.data.datasets[0].data.push(
-    stn === "S109" ? value : lineChartData[lastIndex]
-  );*/
 }
 
 function addData(chart, label, data) {
